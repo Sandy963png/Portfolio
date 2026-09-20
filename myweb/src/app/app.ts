@@ -82,6 +82,7 @@ export class App implements OnInit, AfterViewInit {
       category: 'Full-Stack Web App',
       github: 'https://github.com/Sandy963png/fst-project',
       links: [
+        { label: 'Guide Hub ↗', url: 'https://fst-project.onrender.com/' },
         { label: 'React Portal ↗', url: 'https://fst-project-react.vercel.app/' },
         { label: 'Angular Admin ↗', url: 'https://fst-project-lac.vercel.app/' }
       ],
