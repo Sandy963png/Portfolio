@@ -1,0 +1,854 @@
+<!-- Top Reading Progress Indicator -->
+<div class="scroll-progress"></div>
+
+<!-- Google Antigravity Dynamic Particle Constellation Field -->
+<canvas id="antigravity-particle-canvas" class="antigravity-particle-canvas"></canvas>
+
+<!-- NAVIGATION BAR -->
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="brand-signature" aria-label="Sandeep Rajasekar Portfolio Home">
+      <div class="brand-logo-frame">
+        <div class="brand-orbit-ring"></div>
+        <span class="brand-monogram">&lt;SR/&gt;</span>
+      </div>
+      <div class="brand-name-group">
+        <div class="brand-title">
+          SANDEEP <span class="brand-surname-gradient">RAJASEKAR</span>
+        </div>
+        <div class="brand-status-line">
+          <span class="status-pulse-dot"></span>
+          <span class="status-role-text">COMPUTER SCIENCE & ENGINEERING</span>
+        </div>
+      </div>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#home" [class.active]="activeSection === 'home'">Home</a>
+      <a href="#about" [class.active]="activeSection === 'about'">About</a>
+      <a href="#skills" [class.active]="activeSection === 'skills'">Skills</a>
+      <a href="#projects" [class.active]="activeSection === 'projects'">Projects</a>
+      <a href="#education" [class.active]="activeSection === 'education'">Education</a>
+      <a href="#contact" [class.active]="activeSection === 'contact'">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Resume PDF Button -->
+      <a href="sandeep_resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-resume-btn" title="View & Download Official Resume PDF">
+        <span>📄 Resume</span>
+        <span class="arrow-icon">↗</span>
+      </a>
+
+      <!-- Theme Keyword Switcher Button -->
+      <button 
+        type="button" 
+        class="keyword-theme-btn" 
+        (click)="toggleThemeBar()" 
+        title="Type or select a theme keyword"
+      >
+        <span>🎨 Palette</span>
+      </button>
+
+      <a href="#contact" class="nav-contact">
+        Let's Talk <span class="arrow-icon">↗</span>
+      </a>
+
+      <button
+        class="mobile-menu-btn"
+        type="button"
+        (click)="toggleMenu()"
+        aria-label="Open navigation menu"
+      >
+        <span [class.open]="menuOpen"></span>
+        <span [class.open]="menuOpen"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Keyword Theme Bar -->
+  @if (showThemeBar) {
+    <div class="theme-keyword-bar">
+      <div class="container theme-bar-inner">
+        <span class="theme-bar-title">⌨️ Theme Keyword:</span>
+        <form (submit)="applyThemeByKeyword(); $event.preventDefault();" class="theme-input-form">
+          <input 
+            type="text" 
+            [(ngModel)]="themeKeywordInput" 
+            name="themeKeyword" 
+            placeholder="Type 'brutalist', 'matrix', 'editorial', 'aurora'..." 
+            class="theme-keyword-input"
+          />
+          <button type="submit" class="theme-apply-btn">Apply</button>
+        </form>
+        <div class="theme-quick-tags">
+          <span (click)="applyThemeByKeyword('brutalist')" [class.active]="currentTheme === 'brutalist'">#brutalist ⚡</span>
+          <span (click)="applyThemeByKeyword('matrix')" [class.active]="currentTheme === 'matrix'">#matrix</span>
+          <span (click)="applyThemeByKeyword('editorial')" [class.active]="currentTheme === 'editorial'">#editorial</span>
+          <span (click)="applyThemeByKeyword('aurora')" [class.active]="currentTheme === 'aurora'">#aurora</span>
+        </div>
+        <button type="button" class="theme-bar-close" (click)="toggleThemeBar()">✕</button>
+      </div>
+      @if (themeFeedbackMessage) {
+        <div class="theme-feedback-toast">
+          {{ themeFeedbackMessage }}
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Mobile Drawer Menu -->
+  @if (menuOpen) {
+    <div class="mobile-menu">
+      <a href="#home" (click)="closeMenu()">Home</a>
+      <a href="#about" (click)="closeMenu()">About</a>
+      <a href="#skills" (click)="closeMenu()">Skills</a>
+      <a href="#projects" (click)="closeMenu()">Projects</a>
+      <a href="#education" (click)="closeMenu()">Education</a>
+      <a href="#contact" (click)="closeMenu()">Contact</a>
+    </div>
+  }
+</header>
+
+
+<main>
+
+  <!-- HERO SECTION -->
+  <section id="home" class="hero">
+    <div class="hero-glow glow-one"></div>
+    <div class="hero-glow glow-two"></div>
+    <div class="hero-grid-bg"></div>
+
+    <!-- Antigravity Revolving Orbital Particles -->
+    <div class="antigravity-orbital-container" aria-hidden="true">
+      <div class="orbital-ring ring-outer">
+        <span class="revolving-dot dot-1"></span>
+        <span class="revolving-dot dot-2"></span>
+        <span class="revolving-dot dot-3"></span>
+      </div>
+      <div class="orbital-ring ring-middle">
+        <span class="revolving-dot dot-4"></span>
+        <span class="revolving-dot dot-5"></span>
+      </div>
+      <div class="orbital-ring ring-inner">
+        <span class="revolving-dot dot-6"></span>
+        <span class="revolving-dot dot-7"></span>
+      </div>
+    </div>
+
+    <div class="container hero-content">
+
+      <div class="hero-badge">
+        <span class="pulse"></span>
+        <span>Computer Science Student & Full-Stack Developer</span>
+      </div>
+
+      <h1>
+        Building digital
+        <span class="gradient-text">experiences</span>
+        with code & innovation.
+      </h1>
+
+      <p class="hero-description">
+        Hi, I'm <strong class="highlight-text">Sandeep Rajasekar</strong>. A Computer Science & Engineering student at
+        CEG Anna University, passionate about crafting robust full-stack web applications, ML tools, and intuitive software solutions.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#projects" class="primary-btn">
+          View Selected Work
+          <span class="btn-arrow">↗</span>
+        </a>
+
+        <a href="#contact" class="secondary-btn">
+          Get In Touch
+        </a>
+
+        <a href="javascript:void(0)" (click)="openProjectModal(getCrimeProject())" class="glass-btn">
+          <span>✨ Highlight Project</span>
+        </a>
+      </div>
+
+      <!-- Quick Metrics Pill -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">8.934</span>
+          <span class="stat-label">CGPA (B.E. CSE)</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">16+</span>
+          <span class="stat-label">Tech & Tools Mastered</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">3+</span>
+          <span class="stat-label">Full-Stack Projects</span>
+        </div>
+      </div>
+
+      <div class="hero-bottom">
+        <span>SCROLL TO EXPLORE</span>
+        <div class="scroll-line"></div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="section">
+    <div class="section-glow glow-cyan-left"></div>
+    <div class="section-glow glow-purple-right"></div>
+    <div class="section-grid-bg"></div>
+
+    <!-- Antigravity Revolving Orbital Particles: Twin Elliptical Galaxy Orbits (About Section) -->
+    <!-- Right Revolving Orbital System -->
+    <div class="about-orbital-container about-orbital-right" aria-hidden="true">
+      <div class="about-ring ring-galaxy-1">
+        <span class="revolving-dot dot-cyan pos-top"></span>
+        <span class="revolving-dot dot-purple pos-bottom"></span>
+      </div>
+      <div class="about-ring ring-galaxy-2">
+        <span class="revolving-dot dot-pink pos-left"></span>
+        <span class="revolving-dot dot-emerald pos-right"></span>
+      </div>
+    </div>
+
+    <!-- Left Revolving Orbital System -->
+    <div class="about-orbital-container about-orbital-left" aria-hidden="true">
+      <div class="about-ring ring-galaxy-3">
+        <span class="revolving-dot dot-emerald pos-top-left"></span>
+        <span class="revolving-dot dot-cyan pos-bottom-right"></span>
+      </div>
+      <div class="about-ring ring-galaxy-4">
+        <span class="revolving-dot dot-purple pos-top-right"></span>
+        <span class="revolving-dot dot-pink pos-bottom-left"></span>
+      </div>
+    </div>
+
+    <div class="container relative-z">
+
+      <div class="section-top relative-pos">
+        <div>
+          <span class="eyebrow"><span class="badge-dot"></span> 01 — ABOUT ME</span>
+          <h2>Turning complex ideas into<br><span class="gradient-subtext">elegant software products.</span></h2>
+        </div>
+
+        <!-- Heading-adjacent Revolving Orbital System -->
+        <div class="about-heading-orbital" aria-hidden="true">
+          <div class="about-ring ring-galaxy-heading-outer">
+            <span class="revolving-dot dot-purple pos-top"></span>
+            <span class="revolving-dot dot-cyan pos-bottom-right"></span>
+          </div>
+          <div class="about-ring ring-galaxy-heading-inner">
+            <span class="revolving-dot dot-pink pos-left"></span>
+            <span class="revolving-dot dot-emerald pos-right"></span>
+          </div>
+        </div>
+
+        <p class="section-description">
+          I am a driven software developer who enjoys understanding core system architectures, solving real-world algorithmic problems, and delivering clean, maintainable web applications.
+        </p>
+      </div>
+
+      <div class="about-grid">
+
+        <div class="about-card about-main-card">
+          <div class="card-icon purple-icon">✦</div>
+
+          <h3>Engineering Mindset & Full-Stack Expertise</h3>
+
+          <p>
+            Currently pursuing my Bachelor of Engineering in Computer Science & Engineering at <strong>College of Engineering, Guindy (Anna University)</strong>.
+          </p>
+
+          <p>
+            My technical repertoire spans from low-level systems programming in C/C++ and object-oriented Java/Python to modern web development using Angular, React, Node.js, Express, and MongoDB.
+          </p>
+
+          <div class="about-tags">
+            <span class="tag-pill">⚡ Problem Solver</span>
+            <span class="tag-pill">🚀 Full-Stack Web</span>
+            <span class="tag-pill">📊 Data & ML</span>
+            <span class="tag-pill">🏛️ Clean Code</span>
+          </div>
+        </div>
+
+        <div class="about-card small-card">
+          <span class="card-label">CURRENT FOCUS</span>
+          <strong>Full-Stack, Data Science & ML</strong>
+          <span class="card-arrow">↗</span>
+        </div>
+
+        <div class="about-card small-card">
+          <span class="card-label">BASED IN</span>
+          <strong>Chennai,<br />India</strong>
+          <span class="card-arrow">↗</span>
+        </div>
+
+        <div class="about-card small-card span-two-cols">
+          <span class="card-label">INSTITUTION</span>
+          <strong>College of Engineering, Guindy</strong>
+          <span class="card-sublabel">Anna University • B.E. CSE (2024 - 2028)</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- SKILLS SECTION -->
+  <section id="skills" class="section soft-section">
+    <div class="section-glow glow-purple-center"></div>
+    <div class="section-grid-bg"></div>
+
+    <!-- Antigravity Revolving Orbital Particles: Triple Interlocking Atomic Orbits (Skills Section) -->
+    <div class="skills-orbital-container" aria-hidden="true">
+      <div class="atomic-orbit ring-atomic-x">
+        <span class="revolving-dot dot-cyan pos-top"></span>
+        <span class="revolving-dot dot-pink pos-bottom"></span>
+      </div>
+      <div class="atomic-orbit ring-atomic-y">
+        <span class="revolving-dot dot-purple pos-left"></span>
+        <span class="revolving-dot dot-emerald pos-right"></span>
+      </div>
+      <div class="atomic-orbit ring-atomic-z">
+        <span class="revolving-dot dot-emerald pos-top-right"></span>
+        <span class="revolving-dot dot-cyan pos-bottom-left"></span>
+      </div>
+    </div>
+
+    <div class="container relative-z">
+
+      <div class="section-heading-centered">
+        <span class="eyebrow"><span class="badge-dot"></span> 02 — SKILLS & TECH STACK</span>
+
+        <h2>
+          Technologies I
+          <span class="gradient-text">work with.</span>
+        </h2>
+
+        <p>
+          A broad range of languages, frameworks, databases, and engineering tools I utilize to craft reliable software.
+        </p>
+
+        <!-- Category Tabs -->
+        <div class="skill-tabs">
+          @for (cat of skillCategories; track cat) {
+            <button 
+              type="button"
+              class="tab-btn"
+              [class.active]="selectedSkillCategory === cat"
+              (click)="filterSkills(cat)"
+            >
+              {{ cat }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        @for (skill of filteredSkills; track skill.name; let i = $index) {
+          <div class="skill-card">
+            <div class="skill-header">
+              <span class="skill-icon-emoji">{{ skill.icon }}</span>
+              <span class="skill-level-badge">{{ skill.level }}</span>
+            </div>
+
+            <span class="skill-name">
+              {{ skill.name }}
+            </span>
+
+            <span class="skill-category-tag">
+              {{ skill.category }}
+            </span>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects" class="section">
+    <div class="section-glow glow-cyan-right"></div>
+    <div class="section-glow glow-pink-left"></div>
+    <div class="section-grid-bg"></div>
+
+    <!-- Antigravity Revolving Orbital Particles: Twin Concentric Pulsar Orbits (Projects Section) -->
+    <!-- Right Revolving Orbital System -->
+    <div class="projects-orbital-container projects-orbital-right" aria-hidden="true">
+      <div class="projects-ring ring-proj-outer">
+        <span class="revolving-dot dot-cyan pos-top"></span>
+        <span class="revolving-dot dot-pink pos-bottom-left"></span>
+      </div>
+      <div class="projects-ring ring-proj-mid">
+        <span class="revolving-dot dot-purple pos-left"></span>
+        <span class="revolving-dot dot-emerald pos-right"></span>
+      </div>
+      <div class="projects-ring ring-proj-inner">
+        <span class="revolving-dot dot-emerald pos-top-right"></span>
+      </div>
+    </div>
+
+    <!-- Left Revolving Orbital System -->
+    <div class="projects-orbital-container projects-orbital-left" aria-hidden="true">
+      <div class="projects-ring ring-proj-outer-left">
+        <span class="revolving-dot dot-purple pos-top"></span>
+        <span class="revolving-dot dot-emerald pos-bottom-right"></span>
+      </div>
+      <div class="projects-ring ring-proj-mid-left">
+        <span class="revolving-dot dot-pink pos-right"></span>
+        <span class="revolving-dot dot-cyan pos-bottom-left"></span>
+      </div>
+      <div class="projects-ring ring-proj-inner-left">
+        <span class="revolving-dot dot-cyan pos-top-left"></span>
+      </div>
+    </div>
+
+    <div class="container relative-z">
+
+      <div class="section-top projects-heading">
+        <div>
+          <span class="eyebrow"><span class="badge-dot"></span> 03 — FEATURED PROJECTS</span>
+
+          <h2>
+            Things I've<br />
+            <span class="gradient-text">built & engineered.</span>
+          </h2>
+        </div>
+
+        <p class="section-description">
+          A showcase of academic and personal engineering projects spanning web portals, interactive algorithms, and machine learning models. Click any project to view full specifications.
+        </p>
+      </div>
+
+
+      <div class="projects-grid">
+
+        @for (project of projects; track project.id; let i = $index) {
+
+          <article class="project-card" (click)="openProjectModal(project)">
+
+            <div class="project-top">
+              <span class="project-number">
+                PROJECT // 0{{ i + 1 }}
+              </span>
+
+              <span class="project-badge-pill">
+                {{ project.badge }}
+              </span>
+            </div>
+
+            <div class="project-content">
+
+              <div class="project-visual" [style.background]="project.gradient">
+                <span class="visual-number">0{{ i + 1 }}</span>
+                <div class="visual-orb"></div>
+                <div class="visual-grid"></div>
+                <div class="visual-preview-overlay">
+                  <span>Explore Details 🔍</span>
+                </div>
+              </div>
+
+              <h3>{{ project.title }}</h3>
+              <h4 class="project-subtitle">{{ project.subtitle }}</h4>
+
+              <p class="project-desc-short">
+                {{ project.description }}
+              </p>
+
+              <div class="project-tags">
+                @for (tech of project.tech; track tech) {
+                  <span>{{ tech }}</span>
+                }
+              </div>
+
+              <!-- Direct Project Links from LaTeX Resume -->
+              <div class="project-card-links" (click)="$event.stopPropagation()">
+                @for (link of project.links; track link.url) {
+                  <a [href]="link.url" target="_blank" rel="noopener noreferrer" class="card-link-btn">
+                    <span>{{ link.label }}</span>
+                  </a>
+                }
+                <a [href]="project.github" target="_blank" rel="noopener noreferrer" class="card-link-btn github-btn">
+                  <span>GitHub ↗</span>
+                </a>
+              </div>
+
+            </div>
+
+            <div class="project-footer">
+              <span class="footer-action-text">VIEW FULL OVERVIEW</span>
+              <span class="footer-arrow">→</span>
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- EDUCATION & LEADERSHIP SECTION -->
+  <section id="education" class="section soft-section">
+    <div class="section-glow glow-purple-left"></div>
+    <div class="section-grid-bg"></div>
+
+    <!-- Antigravity Revolving Orbital Particles: Twin Cresting Arc Orbits (Education Section) -->
+    <!-- Left Revolving Orbital System -->
+    <div class="education-orbital-container education-orbital-left" aria-hidden="true">
+      <div class="education-ring ring-edu-outer">
+        <span class="revolving-dot dot-emerald pos-top"></span>
+        <span class="revolving-dot dot-purple pos-bottom-right"></span>
+      </div>
+      <div class="education-ring ring-edu-inner">
+        <span class="revolving-dot dot-cyan pos-left"></span>
+        <span class="revolving-dot dot-pink pos-right"></span>
+      </div>
+    </div>
+
+    <!-- Right Revolving Orbital System -->
+    <div class="education-orbital-container education-orbital-right" aria-hidden="true">
+      <div class="education-ring ring-edu-outer-right">
+        <span class="revolving-dot dot-purple pos-top-right"></span>
+        <span class="revolving-dot dot-cyan pos-bottom-left"></span>
+      </div>
+      <div class="education-ring ring-edu-inner-right">
+        <span class="revolving-dot dot-pink pos-top-left"></span>
+        <span class="revolving-dot dot-emerald pos-bottom-right"></span>
+      </div>
+    </div>
+
+    <div class="container relative-z">
+
+      <div class="section-top">
+        <div>
+          <span class="eyebrow"><span class="badge-dot"></span> 04 — EDUCATION & LEADERSHIP</span>
+
+          <h2>
+            Learning,
+            <span class="gradient-text">building,</span>
+            & leading.
+          </h2>
+        </div>
+      </div>
+
+      <div class="education-grid">
+
+        <!-- CEG Anna University -->
+        <div class="education-card">
+          <div class="education-icon">🎓</div>
+          <div class="education-info">
+            <div class="education-meta">
+              <span class="education-period">Aug. 2024 — Present</span>
+              <span class="education-status-pill">In Progress</span>
+              <span class="education-cgpa-pill">CGPA: 8.93 / 10</span>
+            </div>
+            <h3>Bachelor of Engineering in Computer Science & Engineering</h3>
+            <p class="education-institution">
+              <strong>College of Engineering Guindy, Anna University</strong> — Chennai, TN
+            </p>
+            <div class="education-highlights">
+              <span>Core Coursework: Data Structures & Algorithms, Object-Oriented Programming, Database Management Systems, Digital System Design, Machine Learning (learning).</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Class XII -->
+        <div class="education-card">
+          <div class="education-icon">🏫</div>
+          <div class="education-info">
+            <div class="education-meta">
+              <span class="education-period">Jun. 2023 — Mar. 2024</span>
+              <span class="education-status-pill completed">Completed</span>
+              <span class="education-cgpa-pill">Score: 96.1%</span>
+            </div>
+            <h3>Higher Secondary Certificate (Class XII)</h3>
+            <p class="education-institution">
+              <strong>Jai Saradha Higher Secondary School</strong> — Tirupur, TN
+            </p>
+            <div class="education-highlights">
+              <span>Specialization: Computer Science & Mathematics with distinction.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LEADERSHIP & EXTRACURRICULARS SUBSECTION -->
+      <div class="leadership-section">
+        <h3 class="leadership-heading">Leadership & Extra Curriculars</h3>
+        <div class="leadership-grid">
+
+          <div class="leadership-card">
+            <div class="leadership-badge">NSO</div>
+            <div class="leadership-content">
+              <h4>National Sports Organisation (NSO) — Student Member</h4>
+              <span class="leadership-org">College of Engineering Guindy, Chennai, TN</span>
+              <p>Engaged in structured athletic conditioning programs and represented the institution in competitive inter-departmental sporting events.</p>
+            </div>
+          </div>
+
+          <div class="leadership-card">
+            <div class="leadership-badge">CR</div>
+            <div class="leadership-content">
+              <h4>Class Representative — 2nd Semester</h4>
+              <span class="leadership-org">College of Engineering Guindy, Chennai, TN</span>
+              <p>Served as the primary liaison between academic faculty and the student cohort to facilitate curriculum scheduling, administrative messaging, and academic conflict resolution.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="contact-section">
+    <div class="contact-glow"></div>
+    <div class="section-glow glow-cyan-left"></div>
+    <div class="section-grid-bg"></div>
+
+    <!-- Antigravity Revolving Orbital Particles: Unique Quad-Ring Cosmic Vortex (Contact Section) -->
+    <div class="contact-orbital-container" aria-hidden="true">
+      <div class="contact-ring ring-contact-1">
+        <span class="revolving-dot dot-cyan pos-top"></span>
+        <span class="revolving-dot dot-purple pos-bottom-right"></span>
+        <span class="revolving-dot dot-pink pos-top-left"></span>
+      </div>
+      <div class="contact-ring ring-contact-2">
+        <span class="revolving-dot dot-pink pos-left"></span>
+        <span class="revolving-dot dot-emerald pos-right"></span>
+      </div>
+      <div class="contact-ring ring-contact-3">
+        <span class="revolving-dot dot-emerald pos-top-right"></span>
+        <span class="revolving-dot dot-cyan pos-bottom-left"></span>
+      </div>
+    </div>
+
+    <div class="container contact-content relative-z">
+
+      <span class="eyebrow light-eyebrow">
+        05 — CONTACT
+      </span>
+
+      <h2>
+        Let's build something
+        <span class="highlight-contact-text">great together.</span>
+      </h2>
+
+      <p>
+        I'm actively seeking opportunities for software development roles, full-stack projects, and technical collaborations. Send me a message!
+      </p>
+
+      <div class="contact-layout">
+
+        <!-- Form Card -->
+        <div class="contact-form-card">
+          @if (contactSubmitted) {
+            <div class="contact-success-message">
+              <div class="success-icon">🎉</div>
+              <h3>Thank you for reaching out!</h3>
+              <p>Your message has been sent successfully. I'll get back to you as soon as possible.</p>
+              <button type="button" class="secondary-btn" (click)="resetContactForm()">Send Another Message</button>
+            </div>
+          } @else {
+            <form (ngSubmit)="submitContact()" #cForm="ngForm" class="contact-form" action="https://formsubmit.co/sandeeprajasekar361@gmail.com" method="POST">
+              <!-- FormSubmit Configuration -->
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_subject" [value]="contactForm.subject || 'New Portfolio Message from ' + contactForm.name" />
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Your Name *</label>
+                  <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    [(ngModel)]="contactForm.name" 
+                    required 
+                    placeholder="e.g. Alex Morgan"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    [(ngModel)]="contactForm.email" 
+                    required 
+                    placeholder="e.g. alex@example.com"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input 
+                  type="text" 
+                  id="subject" 
+                  name="subject" 
+                  [(ngModel)]="contactForm.subject" 
+                  placeholder="Project inquiry / Opportunity"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="4" 
+                  [(ngModel)]="contactForm.message" 
+                  required 
+                  placeholder="Tell me about your project or message..."
+                ></textarea>
+              </div>
+
+              @if (contactErrorMessage) {
+                <div class="contact-error-alert">
+                  <span>⚠️ {{ contactErrorMessage }}</span>
+                </div>
+              }
+
+              <button 
+                type="submit" 
+                class="contact-submit-btn" 
+                [disabled]="!cForm.form.valid || contactSending"
+              >
+                @if (!contactSending) {
+                  <span>Send Message <span>↗</span></span>
+                } @else {
+                  <span>Sending... ⏳</span>
+                }
+              </button>
+            </form>
+          }
+        </div>
+
+        <!-- Contact Links -->
+        <div class="contact-direct-info">
+          <div class="info-item">
+            <span class="info-label">EMAIL</span>
+            <a href="mailto:sandeeprajasekar361@gmail.com" class="info-value info-link">sandeeprajasekar361@gmail.com ↗</a>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">PHONE</span>
+            <a href="tel:+919384187963" class="info-value info-link">+91 9384187963 ↗</a>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">LOCATION</span>
+            <span class="info-value">College of Engineering Guindy, Chennai, TN</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">CONNECT WITH ME</span>
+            <div class="contact-socials">
+              <a href="https://github.com/Sandy963png" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              <a href="https://www.linkedin.com/in/sandeeprajasekar" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- PROJECT DETAILS MODAL -->
+@if (selectedProject) {
+  <div class="modal-backdrop" (click)="closeProjectModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+
+      <button type="button" class="modal-close-btn" (click)="closeProjectModal()" aria-label="Close modal">
+        ✕
+      </button>
+
+      <div class="modal-header" [style.background]="selectedProject.gradient">
+        <span class="modal-badge">{{ selectedProject.badge }}</span>
+        <h2>{{ selectedProject.title }}</h2>
+        <p>{{ selectedProject.subtitle }}</p>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-section">
+          <h4>Overview</h4>
+          <p>{{ selectedProject.overview }}</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Key Features & Architecture</h4>
+          <ul class="modal-features-list">
+            @for (feature of selectedProject.features; track feature) {
+              <li><span class="check-bullet">✓</span> {{ feature }}</li>
+            }
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h4>Technologies Used</h4>
+          <div class="modal-tech-tags">
+            @for (tech of selectedProject.tech; track tech) {
+              <span class="tech-tag">{{ tech }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          @for (link of selectedProject.links; track link.url) {
+            <a [href]="link.url" target="_blank" rel="noopener noreferrer" class="primary-btn">
+              {{ link.label }}
+            </a>
+          }
+          <a [href]="selectedProject.github" target="_blank" rel="noopener noreferrer" class="secondary-btn">
+            GitHub Repo ↗
+          </a>
+          <button type="button" class="glass-btn" (click)="closeProjectModal()">
+            Close Dialog
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+}
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+
+    <div class="footer-brand">
+      <div class="brand-logo-frame footer-logo">
+        <span class="brand-monogram">&lt;SR/&gt;</span>
+      </div>
+      <span class="footer-brand-name">SANDEEP <span class="brand-surname-gradient">RAJASEKAR</span></span>
+    </div>
+
+    <p>
+      © {{ currentYear }} Sandeep Rajasekar — Built with Angular
+    </p>
+
+    <a href="#home" class="back-to-top-link">
+      Back to top ↑
+    </a>
+
+  </div>
+</footer>
+
