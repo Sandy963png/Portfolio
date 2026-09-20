@@ -1,14 +1,122 @@
 <!doctype html>
 <html lang="en" style="background-color: #ffffff; color-scheme: light;">
+
 <head>
   <meta charset="utf-8">
   <title>Sandeep Rajasekar — Portfolio</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+  <link rel="alternate icon" type="image/x-icon" href="favicon.svg?v=2">
+  <link rel="shortcut icon" href="favicon.svg?v=2">
 </head>
+
 <body style="background-color: #ffffff; color: #0f172a; margin: 0;">
   <app-root></app-root>
+  <script>
+    (function () {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      let angle = 0;
+      let iconLink = document.querySelector("link[rel*='icon']");
+      if (!iconLink) {
+        iconLink = document.createElement('link');
+        iconLink.rel = 'icon';
+        document.head.appendChild(iconLink);
+      }
+
+      function renderFavicon() {
+        ctx.clearRect(0, 0, 64, 64);
+
+        // Rotating organic fluid gradient ring
+        ctx.save();
+        ctx.translate(32, 32);
+        ctx.rotate(angle);
+        ctx.translate(-32, -32);
+
+        const ringGrad = ctx.createLinearGradient(0, 0, 64, 64);
+        ringGrad.addColorStop(0, '#38bdf8');
+        ringGrad.addColorStop(0.35, '#6366f1');
+        ringGrad.addColorStop(0.70, '#a855f7');
+        ringGrad.addColorStop(1, '#ec4899');
+
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(4, 4, 56, 56, 20);
+        } else {
+          ctx.arc(32, 32, 27, 0, Math.PI * 2);
+        }
+        ctx.lineWidth = 3.5;
+        ctx.strokeStyle = ringGrad;
+        ctx.shadowColor = 'rgba(168, 85, 247, 0.5)';
+        ctx.shadowBlur = 4;
+        ctx.stroke();
+        ctx.restore();
+
+        // Stationary inner badge card
+        ctx.save();
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(13, 13, 38, 38, 10);
+        } else {
+          ctx.rect(13, 13, 38, 38);
+        }
+        ctx.fillStyle = '#eef2ff';
+        ctx.fill();
+        ctx.lineWidth = 1.4;
+        ctx.strokeStyle = 'rgba(139, 92, 246, 0.35)';
+        ctx.stroke();
+
+        // Stationary <SR/> monospace typography
+        const textGrad = ctx.createLinearGradient(14, 14, 50, 50);
+        textGrad.addColorStop(0, '#1e1b4b');
+        textGrad.addColorStop(0.45, '#4338ca');
+        textGrad.addColorStop(1, '#7c3aed');
+        ctx.fillStyle = textGrad;
+        ctx.font = '900 15px -apple-system, BlinkMacSystemFont, "Fira Code", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('<SR/>', 32, 33);
+        ctx.restore();
+
+        const dataUrl = canvas.toDataURL('image/png');
+        const oldIcons = document.querySelectorAll("link[rel*='icon']");
+        const newIcon = document.createElement('link');
+        newIcon.type = 'image/png';
+        newIcon.rel = 'icon';
+        newIcon.href = dataUrl;
+
+        oldIcons.forEach(function (el) {
+          el.remove();
+        });
+        document.head.appendChild(newIcon);
+
+        angle += 0.12;
+      }
+
+      let animTimer = null;
+      function start() {
+        if (!animTimer) animTimer = setInterval(renderFavicon, 60);
+      }
+      function stop() {
+        if (animTimer) {
+          clearInterval(animTimer);
+          animTimer = null;
+        }
+      }
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stop();
+        else start();
+      });
+
+      start();
+    })();
+  </script>
 </body>
 
 </html>
